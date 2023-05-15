@@ -1,12 +1,12 @@
 .data
-	START: .byte 0
 	INX: .half 0
 	INY: .half 0
-	UPDOWN: .byte 0
 	OUTX: .half 0
 	OUTY: .half 0
+	START: .byte 0
+	UPDOWN: .byte 0
 .text
-	# Useremo $s0 e Ss1 per salvare la posizone precedente,
+	# Useremo $s0 e $s1 per salvare la posizone precedente,
 	# alla prima iterazione devono essere impostati a zero
 	add $s0, $zero, $zero
 	add $s1, $zero, $zero
@@ -15,6 +15,9 @@
 IDLE:   lbu $t0, START
 	li  $t1, 0x80
 	bne $t0, $t1, IDLE
+	
+	#sh $t0, OUTX($zero)
+	#sh $t0, OUTY($zero)
 	
 	#(debug) stampiamo la parola 80 quando è presente
 	li $v0, 1
@@ -28,7 +31,7 @@ IDLE:   lbu $t0, START
 	
 	# Calcoliamo lo spostamento
 	# Spostamento = destinazione - posizione precedente
-	sub $t0, $t0, $s0 
+	sub $t0, $t0, $s0
 	sub $t1, $t1, $s1
 	
 	# Salviamo la nuova destinazione, che diventa la posizone
@@ -37,15 +40,15 @@ IDLE:   lbu $t0, START
 	lh $s1 INY($zero)
 	
 	# Inviamo in OUTX e OUTY lo spostamento calcolato
-	sh $t1, OUTX($zero)
-	sh $t0, OUTY($zero)
+	sh $t0, OUTX($zero)
+	sh $t1, OUTY($zero)
 	
 	# Scriviamo in UPDOWN il valore 0xC3 per far scendere la testata
 	addi $a0, $zero, 0xC3
 	sb $a0, UPDOWN($zero)
 	
-	# Aspettiamo 400 millisecondi - istruzioni: 100 000 000
-	li $t0, 100
+	# Aspettiamo 400 millisecondi - valore da impostare: 100 000 000
+	li $t0, 1
 	
 LOOP:	addi $t0, $t0, -1
 	bne $t0, $zero, LOOP

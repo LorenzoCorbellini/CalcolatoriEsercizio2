@@ -1,10 +1,11 @@
 .data
-	INX: .half 0
-	INY: .half 0
-	OUTX: .half 0
-	OUTY: .half 0
-	START: .byte 0
-	UPDOWN: .byte 0
+	INX: .half 1
+	INY: .half 1
+	OUTX: .half 1
+	OUTY: .half 1
+	START: .byte 1
+	UPDOWN: .byte 1
+
 .text
 	# Useremo $s0 e $s1 per salvare la posizone precedente,
 	# alla prima iterazione devono essere impostati a zero
@@ -15,14 +16,6 @@
 IDLE:   lbu $t0, START
 	li  $t1, 0x80
 	bne $t0, $t1, IDLE
-	
-	#sh $t0, OUTX($zero)
-	#sh $t0, OUTY($zero)
-	
-	#(debug) stampiamo la parola 80 quando è presente
-	li $v0, 1
-	add $a0, $zero, $t1
-	syscall 
 		
 	# Carichiamo in $t0 il valore presente nella cella INX 
 	# e in $t1 il valore presente nella cella INY
@@ -53,7 +46,8 @@ IDLE:   lbu $t0, START
 LOOP:	addi $t0, $t0, -1
 	bne $t0, $zero, LOOP
 
-	# Riscriviamo in UPDOWN il valore 0xC3 per far salire la testata
+	# Scriviamo in UPDOWN il valore 0x3C per far salire la testata
+	addi $a0, $zero, 0x3C
 	sb $a0, UPDOWN($zero)
 	
 	# Ritorniamo all'inizio del programma

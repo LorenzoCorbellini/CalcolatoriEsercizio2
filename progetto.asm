@@ -7,7 +7,7 @@
 	UPDOWN: .byte 0
 
 .text
-	# Useremo $s0 e $s1 per salvare la posizone precedente,
+	# Useremo $s0 e $s1 per salvare la posizione precedente,
 	# alla prima iterazione devono essere impostati a zero
 	add $s0, $zero, $zero
 	add $s1, $zero, $zero

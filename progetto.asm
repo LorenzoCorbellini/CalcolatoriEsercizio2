@@ -1,10 +1,10 @@
 .data
-	INX: .half 1
-	INY: .half 1
-	OUTX: .half 1
-	OUTY: .half 1
-	START: .byte 1
-	UPDOWN: .byte 1
+	INX: .half 0
+	INY: .half 0
+	OUTX: .half 0
+	OUTY: .half 0
+	START: .byte 0
+	UPDOWN: .byte 0
 
 .text
 	# Useremo $s0 e $s1 per salvare la posizone precedente,

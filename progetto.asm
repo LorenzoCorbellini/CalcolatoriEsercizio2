@@ -30,7 +30,7 @@ IDLE:   lbu $t0, START
 	# Salviamo la nuova destinazione, che diventa la posizone
 	# attuale, in $s0 e in $s1
 	lh $s0, INX($zero)
-	lh $s1 INY($zero)
+	lh $s1, INY($zero)
 	
 	# Inviamo in OUTX e OUTY lo spostamento calcolato
 	sh $t0, OUTX($zero)

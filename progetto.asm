@@ -41,7 +41,7 @@ IDLE:   lbu $t0, START
 	sb $a0, UPDOWN($zero)
 	
 	# Aspettiamo 400 millisecondi - valore da impostare: 100 000 000
-	li $t0, 1
+	li $t0, 100000000
 	
 LOOP:	addi $t0, $t0, -1
 	bne $t0, $zero, LOOP
